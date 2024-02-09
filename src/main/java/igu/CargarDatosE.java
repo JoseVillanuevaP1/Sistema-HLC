@@ -260,6 +260,7 @@ public class CargarDatosE extends javax.swing.JFrame {
         user.setDni(dni);
         user.setTelefono(telefono);
         user.setRol(rol);
+        user.setIp(ip);
    
         //obtenemos la lista de alertas que se asignaran y seran registradas en la tabla alertas_usuarios
         int[] list_select = list_alerts.getSelectedIndices();
