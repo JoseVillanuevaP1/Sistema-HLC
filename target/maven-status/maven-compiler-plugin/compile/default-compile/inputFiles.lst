@@ -1,17 +1,16 @@
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\AlarmasGestion\AlarmasGestion.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\igu\VistaAlarmas.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\logica\Alerta.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\igu\Principal.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\logica\Rol.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\igu\SendAlertsView.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\persistencia\exceptions\IllegalOrphanException.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\igu\VistaDatosE.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\persistencia\ControladorPersistencia.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\logica\Controlador.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\persistencia\UsuarioJpaController.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\igu\CargarDatosE.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\persistencia\AlertaJpaController.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\persistencia\exceptions\NonexistentEntityException.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\persistencia\exceptions\PreexistingEntityException.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\logica\Usuario.java
-D:\Netbeans Proyects\proyecto Alarma\SendAlerts\SendAlerts\src\main\java\controller\Hours.java
+D:\HLC\Sistema-HLC\src\main\java\logica\Controlador.java
+D:\HLC\Sistema-HLC\src\main\java\AlarmasGestion\AlarmasGestion.java
+D:\HLC\Sistema-HLC\src\main\java\persistencia\UsuarioJpaController.java
+D:\HLC\Sistema-HLC\src\main\java\logica\Rol.java
+D:\HLC\Sistema-HLC\src\main\java\persistencia\exceptions\NonexistentEntityException.java
+D:\HLC\Sistema-HLC\src\main\java\igu\SendAlertsView.java
+D:\HLC\Sistema-HLC\src\main\java\logica\Alerta.java
+D:\HLC\Sistema-HLC\src\main\java\persistencia\AlertaJpaController.java
+D:\HLC\Sistema-HLC\src\main\java\igu\Principal.java
+D:\HLC\Sistema-HLC\src\main\java\logica\Usuario.java
+D:\HLC\Sistema-HLC\src\main\java\persistencia\exceptions\IllegalOrphanException.java
+D:\HLC\Sistema-HLC\src\main\java\persistencia\exceptions\PreexistingEntityException.java
+D:\HLC\Sistema-HLC\src\main\java\igu\CargarDatosE.java
+D:\HLC\Sistema-HLC\src\main\java\persistencia\ControladorPersistencia.java
+D:\HLC\Sistema-HLC\src\main\java\igu\VistaAlarmas.java
+D:\HLC\Sistema-HLC\src\main\java\igu\VistaDatosE.java

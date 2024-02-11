@@ -4,17 +4,31 @@
  */
 package igu;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.SpinnerDateModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JSpinner;
+import logica.Alerta;
+import logica.Controlador;
+
 /**
  *
  * @author JORDY
  */
 public class VistaAlarmas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CargarAlertas
-     */
+    private long id_alerta = 0;
+    private final Controlador controlador = new Controlador();
+    private List<Alerta> alertas;
+
     public VistaAlarmas() {
         initComponents();
+        this.cargarAlarmas();
     }
 
     /**
@@ -32,8 +46,17 @@ public class VistaAlarmas extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        txt_titulo = new javax.swing.JTextField();
+        txt_msj = new javax.swing.JTextField();
+        btn_actualizar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        SpinnerDateModel sm = new SpinnerDateModel();
+        js_hora = new javax.swing.JSpinner(sm);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dubai", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(217, 184, 20));
@@ -56,21 +79,79 @@ public class VistaAlarmas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btn_actualizar.setBackground(new java.awt.Color(0, 64, 129));
+        btn_actualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_actualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_actualizar.setText("Actualizar");
+        btn_actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarActionPerformed(evt);
+            }
+        });
+
+        btn_eliminar.setBackground(new java.awt.Color(0, 64, 129));
+        btn_eliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Titulo:");
+
+        jLabel4.setText("Mensaje:");
+
+        jLabel5.setText("Hora:");
+
+        JSpinner.DateEditor de = new JSpinner.DateEditor(js_hora, "HH:mm");
+        js_hora.setEditor(de);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_msj, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                            .addComponent(txt_titulo))
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(js_hora, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_actualizar)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5)
+                    .addComponent(js_hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_msj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_eliminar)
+                    .addComponent(jLabel4))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -92,7 +173,7 @@ public class VistaAlarmas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -115,17 +196,158 @@ public class VistaAlarmas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
+
+        if (id_alerta != 0) {
+
+            //validar titulo
+            String titulo = txt_titulo.getText().trim();
+            if (titulo.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo titulo esta vacio.");
+                return;
+            }
+
+            //validar dni
+            String mensaje = txt_msj.getText().trim();
+            if (mensaje.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo mensaje esta vacio.");
+                return;
+            }
+
+            //Obtener la hora
+            Date hora = (Date) js_hora.getValue();
+            Calendar cd = Calendar.getInstance();
+            cd.setTime(hora);
+
+            //crear instancia Alerta
+            Alerta alerta = new Alerta();
+            alerta.setId_alerta(id_alerta);
+            alerta.setTitle(titulo);
+            alerta.setMsj(mensaje);
+            alerta.setHour(cd.get(Calendar.HOUR_OF_DAY));
+            alerta.setMinute(cd.get(Calendar.MINUTE));
+
+            //altualizamos la alerta en la base de datos
+            controlador.editarAlerta(alerta);
+            cargarAlarmas();
+            limpiar();
+            id_alerta = 0;
+            JOptionPane.showMessageDialog(null, "Actualizado Exitosamente!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una alerta.");
+        }
+
+
+    }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+
+        if (id_alerta != 0) {
+
+            int op = JOptionPane.showConfirmDialog(null, "Seguro deseas eliminar esta alerta?");
+
+            if (op == 0) {
+                controlador.eliminarAlerta(id_alerta);
+                cargarAlarmas();
+                limpiar();
+                id_alerta = 0;
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una alerta.");
+        }
+
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_actualizar;
+    private javax.swing.JButton btn_eliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JSpinner js_hora;
+    private javax.swing.JTextField txt_msj;
+    private javax.swing.JTextField txt_titulo;
     // End of variables declaration//GEN-END:variables
+
+    public void cargarAlarmas() {
+        alertas = controlador.traerAlertas();
+
+        if (alertas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay alertas registradas.");
+        } else {
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("ID");
+            model.addColumn("Titulo");
+            model.addColumn("Mensaje");
+            model.addColumn("Hora");
+
+            for (Alerta alerta : alertas) {
+                Object fila[] = new Object[4];
+                fila[0] = alerta.getId_alerta();
+                fila[1] = alerta.getTitle();
+                fila[2] = alerta.getMsj();
+
+                // Formatear la hora y el minuto como "HH:mm"
+                fila[3] = String.format("%02d:%02d", alerta.getHour(), alerta.getMinute());
+
+                model.addRow(fila);
+            }
+
+            jTable1.setModel(model);
+
+            jTable1.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int fila_point = jTable1.rowAtPoint(e.getPoint());
+                    int columna_point = 0;
+
+                    if (fila_point > -1) {
+                        id_alerta = (long) model.getValueAt(fila_point, columna_point);
+                        EnviarDatos(id_alerta);
+                    }
+                }
+
+            });
+        }
+
+    }
+
+    /* Método que envía datos seleccionados */
+    private void EnviarDatos(long idCliente) {
+
+        Alerta alerta = controlador.findAlerta(idCliente);
+
+        // Imprimir la Alerta 
+        txt_titulo.setText(alerta.getTitle());
+        txt_msj.setText(alerta.getMsj());
+
+        // Crear un objeto Calendar y establecer la hora y los minutos
+        Calendar cdr = Calendar.getInstance();
+        cdr.set(Calendar.HOUR_OF_DAY, alerta.getHour());
+        cdr.set(Calendar.MINUTE, alerta.getMinute());
+
+        // Obtener un objeto Date a partir del Calendar
+        Date horax = cdr.getTime();
+        js_hora.setValue(horax);
+        
+    }
+
+    private void limpiar() {
+        txt_titulo.setText("");
+        txt_msj.setText("");
+        js_hora.setValue(new Date());
+    }
+
 }

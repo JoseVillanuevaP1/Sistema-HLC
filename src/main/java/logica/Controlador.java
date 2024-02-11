@@ -25,4 +25,33 @@ public class Controlador {
     public List<Alerta> traerAlertas() {
         return cp.traerAlertas();
     }
+
+    public List<Usuario> traerUsuarios() {
+        return cp.traerUsuarios();
+    }
+    
+    public Usuario findUsuario(Long id){
+        return cp.findUsuarioById(id);
+    }
+    
+    public void eliminarUsuario(long id){
+        cp.eliminarUsuario(id);
+    }
+    
+    public void editarUsuario(Usuario usuario){
+        cp.editarUsuario(usuario);
+    }
+    
+    public Alerta findAlerta(Long id){
+        return cp.findAlertaById(id);
+    }
+    
+    public void eliminarAlerta(long id){
+        cp.eliminarAlerta(id);
+    }
+    
+    public void editarAlerta(Alerta alerta){
+        cp.editarAlerta(alerta);
+    }
+    
 }

@@ -14,8 +14,7 @@ public class CargarDatosE extends javax.swing.JFrame {
 
     private final Controlador controlador = new Controlador();
     private List<Alerta> alertas;
-    
-    
+
     public CargarDatosE() {
         initComponents();
         cargarAlertas();
@@ -46,7 +45,7 @@ public class CargarDatosE extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Ebrima", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(217, 184, 20));
@@ -79,6 +78,11 @@ public class CargarDatosE extends javax.swing.JFrame {
         });
 
         jButton3.setText("SALIR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(list_alerts);
 
@@ -231,6 +235,9 @@ public class CargarDatosE extends javax.swing.JFrame {
         String ip = txtIp.getText().trim();
         if (ip.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El campo ip esta vacio.");
+            
+            //validar que no exista esa ip
+            
             return;
         }
 
@@ -261,30 +268,39 @@ public class CargarDatosE extends javax.swing.JFrame {
         user.setTelefono(telefono);
         user.setRol(rol);
         user.setIp(ip);
-   
+
         //obtenemos la lista de alertas que se asignaran y seran registradas en la tabla alertas_usuarios
         int[] list_select = list_alerts.getSelectedIndices();
         List<Alerta> alertas_usuario = new ArrayList<>();
-        
+
         for (int i : list_select) {
             alertas_usuario.add(alertas.get(i));
         }
-        
+
         //asignamos la lista
         user.setAlertas(alertas_usuario);
-        
+
         //creamos el usuario
         controlador.crearUsuario(user);
+        Limpiar();
         JOptionPane.showMessageDialog(null, "Registro Exitoso!");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    public void Limpiar() {
         txtNombre.setText("");
         txtDni.setText("");
         txtTelefono.setText("");
         txtIp.setText("");
         list_alerts.clearSelection();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -314,16 +330,16 @@ public class CargarDatosE extends javax.swing.JFrame {
     public void cargarAlertas() {
 
         alertas = controlador.traerAlertas();
-        
+
         //ordenar las alertas por hora
         Collections.sort(alertas, (a2, a1) -> Integer.compare(a1.getHour(), a2.getHour()));
-
+        Collections.sort(alertas, (a2, a1) -> Integer.compare(a1.getMinute(), a2.getMinute()));
         
         if (alertas.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay alertas registradas.");
         } else {
 
-            DefaultListModel<String> listModel = new DefaultListModel<>();           
+            DefaultListModel<String> listModel = new DefaultListModel<>();
 
             for (Alerta alerta : alertas) {
                 StringBuilder sb = new StringBuilder();
@@ -336,7 +352,7 @@ public class CargarDatosE extends javax.swing.JFrame {
                                 .toString()
                 );
             }
-            
+
             list_alerts.setModel(listModel);
         }
 
